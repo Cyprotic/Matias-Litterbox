@@ -7,58 +7,82 @@ namespace GamesArchitectureProject
 {
     public class Main : Game
     {
-        private GraphicsDeviceManager _graphics;
-        private SpriteBatch _spriteBatch;
+        private GraphicsDeviceManager graphics;
+        private SpriteBatch spriteBatch;
 
-        private Texture2D _logoImage;
-        private SoundEffect _logoSound;
+        World world;
+
+        //private Texture2D _logoImage;
+        //private SoundEffect _logoSound;
 
         public Main()
         {
-            _graphics = new GraphicsDeviceManager(this);
+            graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            IsMouseVisible = true;
+            //IsMouseVisible = true;
         }
 
+        // Initialization logic
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
+            
 
             base.Initialize();
         }
 
+        // Loading content logic
         protected override void LoadContent()
         {
-            _spriteBatch = new SpriteBatch(GraphicsDevice);
+            Globals.content = this.Content;
+            Globals.spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            _logoImage = Content.Load<Texture2D>("Logo");
-            _logoSound = Content.Load<SoundEffect>("Logo_sound"); // https://freesound.org/people/hy96/sounds/48182/
+            // Load the custom keyboard input
+            Globals.keyboard = new Keyboard();
 
-            _logoSound.Play();
+            world = new World();
+
+            //_logoImage = Content.Load<Texture2D>("Logo");
+            //_logoSound = Content.Load<SoundEffect>("Logo_sound"); // https://freesound.org/people/hy96/sounds/48182/
+
+            //_logoSound.Play();
         }
 
+        // All the update logic
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Microsoft.Xna.Framework.Input.Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            // TODO: Add your update logic here
+            // Update our key precesses
+            Globals.keyboard.Update();
+
+            // Update the current world
+            world.Update();
+
+            Globals.keyboard.UpdateOld();
 
             base.Update(gameTime);
         }
 
+        // All the drawing logic
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            // TODO: Add your drawing code here
-            _spriteBatch.Begin();
-            _spriteBatch.Draw(_logoImage, new Rectangle(0, 0, _graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight), Color.White);
-            _spriteBatch.End();
+            //OBSOLETE Globals.spriteBatch.Draw(_logoImage, new Rectangle(0, 0, _graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight), Color.White);
+            Globals.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
+
+
+            world.Draw();
+            
+
+            Globals.spriteBatch.End();
+
             base.Draw(gameTime);
         }
     }
 
+    // Run the Program
     public static class Program
     {
         static void Main()
