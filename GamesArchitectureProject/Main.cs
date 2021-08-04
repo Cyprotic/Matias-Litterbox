@@ -12,6 +12,8 @@ namespace GamesArchitectureProject
 
         World world;
 
+        Basic2d cursor;
+
         //private Texture2D _logoImage;
         //private SoundEffect _logoSound;
 
@@ -36,8 +38,13 @@ namespace GamesArchitectureProject
             Globals.content = this.Content;
             Globals.spriteBatch = new SpriteBatch(GraphicsDevice);
 
+            // https://iconarchive.com/show/flat-gradient-social-icons-by-limav/Aim-icon.html
+            cursor = new Basic2d("2d//Misc//cursor", new Vector2(0, 0), new Vector2(28, 28));
+
             // Load the custom keyboard input
             Globals.keyboard = new Keyboard();
+            // Load the custom mouse input
+            Globals.mouse = new MouseControl();
 
             world = new World();
 
@@ -55,11 +62,13 @@ namespace GamesArchitectureProject
 
             // Update our key precesses
             Globals.keyboard.Update();
+            Globals.mouse.Update();
 
             // Update the current world
             world.Update();
 
             Globals.keyboard.UpdateOld();
+            Globals.mouse.UpdateOld();
 
             base.Update(gameTime);
         }
@@ -73,9 +82,10 @@ namespace GamesArchitectureProject
             Globals.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
 
 
-            world.Draw();
-            
+            world.Draw(Vector2.Zero);
 
+
+            cursor.Draw(new Vector2(Globals.mouse.newMousePos.X, Globals.mouse.newMousePos.Y), new Vector2(0, 0));
             Globals.spriteBatch.End();
 
             base.Draw(gameTime);
