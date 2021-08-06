@@ -16,6 +16,11 @@ using Microsoft.Xna.Framework.Media;
 
 namespace GamesArchitectureProject
 {
+    // Pass an object and call a function
+    public delegate void PassObject(Object i);
+    // Pass an object and call a function plus return something
+    public delegate object PassObjectAndReturn(object i);
+
     public class Globals
     {
         public static int screenHeight, screenWidth;
@@ -27,10 +32,27 @@ namespace GamesArchitectureProject
         public static Keyboard keyboard;
         public static MouseControl mouse;
 
+        public static GameTime gameTime;
+
 
         public static float GetDistance(Vector2 pos, Vector2 target)
         {
             return (float)Math.Sqrt(Math.Pow(pos.X - target.X, 2) + Math.Pow(pos.Y - target.Y, 2));
+        }
+
+        // Gets a distance between self and target
+        public static Vector2 RadialMovement(Vector2 focus, Vector2 pos, float speed)
+        {
+            float dist = Globals.GetDistance(pos, focus);
+
+            if (dist <= speed)
+            {
+                return focus - pos;
+            }
+            else
+            {
+                return (focus - pos) * speed / dist;
+            }
         }
 
 

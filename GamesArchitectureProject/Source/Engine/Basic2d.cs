@@ -22,7 +22,7 @@ namespace GamesArchitectureProject
             myModel = Globals.content.Load<Texture2D>(PATH);
         }
 
-        public virtual void Update()
+        public virtual void Update(Vector2 OFFSET)
         {
 
         }

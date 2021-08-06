@@ -5,17 +5,17 @@ using System.Text;
 
 namespace GamesArchitectureProject
 {
-    public class Hero : Basic2d
+    public class Hero : Unit
     {
-
-        public float speed;
         public Hero(string PATH, Vector2 POS, Vector2 DIMS) : base(PATH, POS, DIMS)
         {
             speed = 2;
         }
 
-        public override void Update()
+        
+        public override void Update(Vector2 OFFSET)
         {
+            // Check for movement
             if (Globals.keyboard.GetPress("A"))
             {
                 pos = new Vector2(pos.X - speed, pos.Y);
@@ -33,9 +33,15 @@ namespace GamesArchitectureProject
                 pos = new Vector2(pos.X, pos.Y + speed);
             }
 
+            // Rotate character to mouse pointer
             rot = Globals.RotateTowards(pos, new Vector2(Globals.mouse.newMousePos.X, Globals.mouse.newMousePos.Y));
 
-            base.Update();
+            if (Globals.mouse.LeftClick())
+            {
+                GameGlobals.PassProjectile(new Furball(new Vector2(pos.X, pos.Y), this, new Vector2(Globals.mouse.newMousePos.X, Globals.mouse.newMousePos.Y)));
+            }
+
+            base.Update(OFFSET);
         }
 
         public override void Draw(Vector2 OFFSET)

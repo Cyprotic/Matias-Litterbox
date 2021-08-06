@@ -27,7 +27,13 @@ namespace GamesArchitectureProject
         // Initialization logic
         protected override void Initialize()
         {
-            
+            Globals.screenWidth = 800;
+            Globals.screenHeight = 500;
+
+            graphics.PreferredBackBufferWidth = Globals.screenWidth;
+            graphics.PreferredBackBufferHeight = Globals.screenHeight;
+
+            graphics.ApplyChanges();
 
             base.Initialize();
         }
@@ -60,6 +66,8 @@ namespace GamesArchitectureProject
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Microsoft.Xna.Framework.Input.Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
+            // Provides a snapshot of timing values
+            Globals.gameTime = gameTime;
             // Update our key precesses
             Globals.keyboard.Update();
             Globals.mouse.Update();
