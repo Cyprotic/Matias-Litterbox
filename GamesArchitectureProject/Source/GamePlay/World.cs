@@ -8,9 +8,13 @@ namespace GamesArchitectureProject
 {
     public class World
     {
+
+        public int numKilled;
         public Vector2 offset;
 
         public Hero hero;
+
+        public UI ui;
 
         public List<Projectile2d> projectiles = new List<Projectile2d>();
         public List<EnemyCat> mobs = new List<EnemyCat>();
@@ -18,6 +22,7 @@ namespace GamesArchitectureProject
 
         public World()
         {
+            numKilled = 0;
             // Cat image from http://pixelartmaker.com/art/99b1245ee58be2c
             hero = new Hero("2d\\matias", new Vector2(300, 300), new Vector2(48, 48));
 
@@ -37,6 +42,9 @@ namespace GamesArchitectureProject
             spawnPoints.Add(new SpawnPoint("2d\\Misc\\catSpawn", new Vector2(Globals.screenWidth - 50, 50), new Vector2(35, 35)));
             // Add a second to the timer so they don't spawn cats at the same time
             spawnPoints[spawnPoints.Count - 1].spawnTimer.AddToTimer(1000);
+
+            // Initialize UI
+            ui = new UI();
         }
 
         public virtual void Update()
@@ -69,10 +77,13 @@ namespace GamesArchitectureProject
 
                 if (mobs[i].dead)
                 {
+                    numKilled++;
                     mobs.RemoveAt(i);
                     i--;
                 }
             }
+
+            ui.Update(this);
         }
 
         public virtual void AddMob(object INFO)
@@ -87,7 +98,7 @@ namespace GamesArchitectureProject
 
         public virtual void Draw(Vector2 OFFSET)
         {
-            hero.Draw(OFFSET);
+            hero.Draw(offset);
 
             // Drawing projectiles
             for (int i = 0; i < projectiles.Count; i++)
@@ -106,6 +117,8 @@ namespace GamesArchitectureProject
             {
                 mobs[i].Draw(offset);
             }
+
+            ui.Draw(this);
         }
     }
 }
