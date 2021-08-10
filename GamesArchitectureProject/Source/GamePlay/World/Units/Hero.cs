@@ -10,6 +10,9 @@ namespace GamesArchitectureProject
         public Hero(string PATH, Vector2 POS, Vector2 DIMS) : base(PATH, POS, DIMS)
         {
             speed = 2;
+
+            health = 5;
+            healthMax = health;
         }
 
         

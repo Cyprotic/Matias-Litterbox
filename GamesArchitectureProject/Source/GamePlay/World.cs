@@ -20,8 +20,13 @@ namespace GamesArchitectureProject
         public List<EnemyCat> mobs = new List<EnemyCat>();
         public List<SpawnPoint> spawnPoints = new List<SpawnPoint>();
 
-        public World()
+        PassObject ResetWorld;
+
+
+        public World(PassObject RESETWORLD)
         {
+            ResetWorld = RESETWORLD;
+
             numKilled = 0;
             // Cat image from http://pixelartmaker.com/art/99b1245ee58be2c
             hero = new Hero("2d\\matias", new Vector2(300, 300), new Vector2(48, 48));
@@ -49,37 +54,48 @@ namespace GamesArchitectureProject
 
         public virtual void Update()
         {
-            hero.Update(offset);
-
-            // Update spawn points
-            for (int i = 0; i < spawnPoints.Count; i++)
+            if (!hero.dead)
             {
-                spawnPoints[i].Update(offset);
 
-            }
+                hero.Update(offset);
 
-            // Update projectiles
-            for (int i = 0; i < projectiles.Count; i++)
-            {
-                projectiles[i].Update(offset, mobs.ToList<Unit>());
-
-                if (projectiles[i].done)
+                // Update spawn points
+                for (int i = 0; i < spawnPoints.Count; i++)
                 {
-                    projectiles.RemoveAt(i);
-                    i--;
+                    spawnPoints[i].Update(offset);
+
+                }
+
+                // Update projectiles
+                for (int i = 0; i < projectiles.Count; i++)
+                {
+                    projectiles[i].Update(offset, mobs.ToList<Unit>());
+
+                    if (projectiles[i].done)
+                    {
+                        projectiles.RemoveAt(i);
+                        i--;
+                    }
+                }
+
+                // Update mobs
+                for (int i = 0; i < mobs.Count; i++)
+                {
+                    mobs[i].Update(offset, hero);
+
+                    if (mobs[i].dead)
+                    {
+                        numKilled++;
+                        mobs.RemoveAt(i);
+                        i--;
+                    }
                 }
             }
-
-            // Update mobs
-            for (int i = 0; i < mobs.Count; i++)
+            else
             {
-                mobs[i].Update(offset, hero);
-
-                if (mobs[i].dead)
+                if (Globals.keyboard.GetPress("Enter"))
                 {
-                    numKilled++;
-                    mobs.RemoveAt(i);
-                    i--;
+                    ResetWorld(null);
                 }
             }
 

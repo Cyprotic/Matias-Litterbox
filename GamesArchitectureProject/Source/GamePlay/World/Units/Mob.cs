@@ -26,6 +26,12 @@ namespace GamesArchitectureProject
             pos += Globals.RadialMovement(HERO.pos, pos, speed);
             // Rotato to hero
             rot = Globals.RotateTowards(pos, HERO.pos);
+
+            if (Globals.GetDistance(pos, HERO.pos) < 15)
+            {
+                HERO.GetHit(1);
+                dead = true;
+            }
         }
 
         public override void Draw(Vector2 OFFSET)

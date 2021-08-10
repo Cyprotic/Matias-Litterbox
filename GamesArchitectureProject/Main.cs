@@ -10,7 +10,7 @@ namespace GamesArchitectureProject
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
 
-        World world;
+        GamePlay gamePlay;
 
         Basic2d cursor;
 
@@ -52,7 +52,7 @@ namespace GamesArchitectureProject
             // Load the custom mouse input
             Globals.mouse = new MouseControl();
 
-            world = new World();
+            gamePlay = new GamePlay();
 
             //_logoImage = Content.Load<Texture2D>("Logo");
             //_logoSound = Content.Load<SoundEffect>("Logo_sound"); // https://freesound.org/people/hy96/sounds/48182/
@@ -73,7 +73,7 @@ namespace GamesArchitectureProject
             Globals.mouse.Update();
 
             // Update the current world
-            world.Update();
+            gamePlay.Update();
 
             Globals.keyboard.UpdateOld();
             Globals.mouse.UpdateOld();
@@ -90,10 +90,10 @@ namespace GamesArchitectureProject
             Globals.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
 
 
-            world.Draw(Vector2.Zero);
+            gamePlay.Draw();
 
 
-            cursor.Draw(new Vector2(Globals.mouse.newMousePos.X, Globals.mouse.newMousePos.Y), new Vector2(0, 0));
+            cursor.Draw(new Vector2(Globals.mouse.newMousePos.X, Globals.mouse.newMousePos.Y), new Vector2(0, 0), Color.White);
             Globals.spriteBatch.End();
 
             base.Draw(gameTime);
