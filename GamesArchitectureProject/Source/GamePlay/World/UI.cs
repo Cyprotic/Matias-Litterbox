@@ -19,15 +19,15 @@ namespace GamesArchitectureProject
             healthBar = new QuantityDisplayBar(new Vector2(104, 16), 2, Color.Red);
         }
 
-        public void Update(World WORLD)
+        public void Update(World WORLD) 
         {
-            healthBar.Update(WORLD.hero.health, WORLD.hero.healthMax);
+            healthBar.Update(WORLD.user.hero.health, WORLD.user.hero.healthMax);
         }
 
         public void Draw(World WORLD)
         {
             // To print
-            string tempStr = "Cats balled = " + WORLD.numKilled;
+            string tempStr = "Score = " + GameGlobals.score;
             // Dimensions of font
             Vector2 strDims = font.MeasureString(tempStr);
             //Draw
@@ -36,7 +36,7 @@ namespace GamesArchitectureProject
             // Draw healthBar
             healthBar.Draw(new Vector2(20, Globals.screenHeight - 40));
 
-            if (WORLD.hero.dead)
+            if (WORLD.user.hero.dead)
             {
                 tempStr = "Press Enter to Restart!";
                 strDims = font.MeasureString(tempStr);
