@@ -19,13 +19,14 @@ namespace GamesArchitectureProject
     public class Player
     {
 
+        public int id;
         public Hero hero;
         public List<Unit> units = new List<Unit>();
         public List<SpawnPoint> spawnPoints = new List<SpawnPoint>();
 
-        public Player()
+        public Player(int ID)
         {
-
+            id = ID;
         }
 
         public virtual void Update(Player ENEMY, Vector2 OFFSET)
@@ -41,6 +42,11 @@ namespace GamesArchitectureProject
             {
                 spawnPoints[i].Update(OFFSET);
 
+                if (spawnPoints[i].dead)
+                {
+                    spawnPoints.RemoveAt(i);
+                    i--;
+                }
             }
 
             // Update enemies
@@ -59,7 +65,16 @@ namespace GamesArchitectureProject
 
         public virtual void AddUnit(object INFO)
         {
-            units.Add((Unit)INFO);
+            Unit tempUnit = (Unit)INFO;
+            tempUnit.ownerId = id;
+            units.Add(tempUnit);
+        }
+
+        public virtual void AddSpawnPoint(object INFO)
+        {
+            catBoxGirl tempSpawnPoint = (catBoxGirl)INFO;
+            tempSpawnPoint.ownerId = id;
+            spawnPoints.Add(tempSpawnPoint);
         }
 
         public virtual void ChangeScore(int SCORE)

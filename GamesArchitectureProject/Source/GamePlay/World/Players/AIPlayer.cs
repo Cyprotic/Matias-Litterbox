@@ -19,19 +19,18 @@ namespace GamesArchitectureProject
     public class AIPlayer : Player
     {
 
-
-        public AIPlayer()
-            : base()
+        public AIPlayer(int ID)
+            : base(ID)
         {
             // Instaciating the spawns points
             // http://pixelartmaker.com/art/870e175101a248f
-            spawnPoints.Add(new SpawnPoint("2d\\Misc\\catSpawn", new Vector2(50, 50), new Vector2(35, 35)));
-            spawnPoints.Add(new SpawnPoint("2d\\Misc\\catSpawn", new Vector2(Globals.screenWidth / 2, 50), new Vector2(35, 35)));
+            spawnPoints.Add(new catBox( new Vector2(50, 50), id));
+            spawnPoints.Add(new catBox( new Vector2(Globals.screenWidth / 2, 50), id));
 
             // Add half a second to the timer so they don't spawn cats at the same time
-            spawnPoints[spawnPoints.Count - 1].spawnTimer.AddToTimer(500);
+            spawnPoints[spawnPoints.Count   - 1].spawnTimer.AddToTimer(500);
 
-            spawnPoints.Add(new SpawnPoint("2d\\Misc\\catSpawn", new Vector2(Globals.screenWidth - 50, 50), new Vector2(35, 35)));
+            spawnPoints.Add(new catBox( new Vector2(Globals.screenWidth - 50, 50), id));
             // Add a second to the timer so they don't spawn cats at the same time
             spawnPoints[spawnPoints.Count - 1].spawnTimer.AddToTimer(1000);
         }

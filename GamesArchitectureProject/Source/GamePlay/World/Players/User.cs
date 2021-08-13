@@ -20,10 +20,10 @@ namespace GamesArchitectureProject
     {
 
 
-        public User() : base()
+        public User(int ID) : base(ID)
         {
             // Cat image from http://pixelartmaker.com/art/99b1245ee58be2c
-            hero = new Hero("2d\\matias", new Vector2(300, 300), new Vector2(48, 48));
+            hero = new Hero("2d\\matias", new Vector2(300, 300), new Vector2(48, 48), id);
         }
 
         public override void Update(Player ENEMY, Vector2 OFFSET)

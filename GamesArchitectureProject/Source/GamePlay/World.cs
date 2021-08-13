@@ -28,9 +28,11 @@ namespace GamesArchitectureProject
 
             GameGlobals.PassProjectile = AddProjectile;
             GameGlobals.PassMob = AddMob;
+            GameGlobals.PassSpawnPoint = AddSpawnPoint;
 
-            user = new User();
-            aIPlayer = new AIPlayer();
+            // ID 1 since it's not a multiplayer game anyway, but it could be in future implementations!
+            user = new User(1);
+            aIPlayer = new AIPlayer(2);
 
             offset = new Vector2(0, 0);
 
@@ -72,12 +74,37 @@ namespace GamesArchitectureProject
 
         public virtual void AddMob(object INFO)
         {
+            Unit tempUnit = (Unit)INFO;
+
+            if (user.id == tempUnit.ownerId)
+            {
+                user.AddUnit(tempUnit);
+            }
+            else if (aIPlayer.id == tempUnit.ownerId)
+            {
+                aIPlayer.AddUnit(tempUnit);
+            }
+
             aIPlayer.AddUnit((Mob)INFO);
         }
 
         public virtual void AddProjectile(object INFO)
         {
             projectiles.Add((Projectile2d)INFO);
+        }
+
+        public virtual void AddSpawnPoint(object INFO)
+        {
+            catBoxGirl tempSpawnPoint = (catBoxGirl)INFO;
+
+            if (user.id == tempSpawnPoint.ownerId)
+            {
+                user.AddSpawnPoint(tempSpawnPoint);
+            }
+            else if (aIPlayer.id == tempSpawnPoint.ownerId)
+            {
+                aIPlayer.AddSpawnPoint(tempSpawnPoint);
+            }
         }
 
         public virtual void Draw(Vector2 OFFSET)

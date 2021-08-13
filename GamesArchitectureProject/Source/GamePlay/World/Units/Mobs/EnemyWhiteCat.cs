@@ -5,18 +5,22 @@ using System.Text;
 
 namespace GamesArchitectureProject
 {
-    public class EnemyCat : Mob
+    public class EnemyWhiteCat : Mob
     {
-        
-        //https://www.pinterest.com/pin/344032859020619279/
-        public EnemyCat(Vector2 POS, int OWNERID) : base("2d\\Units\\Mobs\\cat1", POS, new Vector2(40,40), OWNERID)
+
+        public GameTimer spawnTimer;
+
+        //https://www.pikpng.com/transpng/xwRRoR/
+        public EnemyWhiteCat(Vector2 POS, int OWNERID) : base("2d\\Units\\Mobs\\catWhite", POS, new Vector2(25,25), OWNERID)
         {
-            speed = 2.0f;
+            speed = 2.5f;
+            
         }
 
         
         public override void Update(Vector2 OFFSET, Player ENEMY)
         {
+
             base.Update(OFFSET, ENEMY);
         }
 
