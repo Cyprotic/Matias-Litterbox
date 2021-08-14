@@ -23,7 +23,9 @@ namespace GamesArchitectureProject
         public User(int ID) : base(ID)
         {
             // Cat image from http://pixelartmaker.com/art/99b1245ee58be2c
-            hero = new Hero("2d\\matias", new Vector2(300, 300), new Vector2(48, 48), id);
+            hero = new Hero("2d\\matias", new Vector2(300, 300), new Vector2(64, 64), id);
+
+            buildings.Add(new LitterBox(new Vector2(Globals.screenWidth / 2, Globals.screenHeight - 40), id));
         }
 
         public override void Update(Player ENEMY, Vector2 OFFSET)

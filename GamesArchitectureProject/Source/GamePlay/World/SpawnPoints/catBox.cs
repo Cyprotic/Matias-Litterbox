@@ -11,7 +11,8 @@ namespace GamesArchitectureProject
         // http://pixelartmaker.com/art/870e175101a248f
         public catBox(Vector2 POS, int OWNERID) : base("2d\\SpawnPoints\\catSpawn", POS, new Vector2(45, 45), OWNERID)
         {
-            
+            health = 10;
+            healthMax = health;
         }
         
         public override void Update(Vector2 OFFSET)

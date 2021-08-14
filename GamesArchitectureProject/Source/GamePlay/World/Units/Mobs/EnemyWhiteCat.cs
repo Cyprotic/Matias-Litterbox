@@ -24,6 +24,31 @@ namespace GamesArchitectureProject
             base.Update(OFFSET, ENEMY);
         }
 
+        public override void AI(Player ENEMY)
+        {
+            Building temp = null;
+            for (int i = 0; i < ENEMY.buildings.Count; i++)
+            {
+                if (ENEMY .buildings[i].GetType().ToString() == "GamesArchitectureProject.LitterBox")
+                {
+                    temp = ENEMY.buildings[i];
+                }
+            }
+
+            if (temp != null)
+            {
+
+                pos += Globals.RadialMovement(temp.pos, pos, speed);
+                rot = Globals.RotateTowards(pos, temp.pos);
+
+                if (Globals.GetDistance(pos, temp.pos) < 15)
+                {
+                    ENEMY.hero.GetHit(1);
+                    dead = true;
+                }
+            }
+        }
+
         public override void Draw(Vector2 OFFSET)
         {
             base.Draw(OFFSET);

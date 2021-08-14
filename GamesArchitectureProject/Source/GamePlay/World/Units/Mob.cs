@@ -15,21 +15,21 @@ namespace GamesArchitectureProject
         
         public override void Update(Vector2 OFFSET, Player ENEMY)
         {
-            AI(ENEMY.hero);
+            AI(ENEMY);
 
             base.Update(OFFSET);
         }
 
-        public virtual void AI(Hero HERO)
+        public virtual void AI(Player ENEMY)
         {
             // Go to hero
-            pos += Globals.RadialMovement(HERO.pos, pos, speed);
+            pos += Globals.RadialMovement(ENEMY.hero.pos, pos, speed);
             // Rotato to hero
-            rot = Globals.RotateTowards(pos, HERO.pos);
+            rot = Globals.RotateTowards(pos, ENEMY.hero.pos);
 
-            if (Globals.GetDistance(pos, HERO.pos) < 15)
+            if (Globals.GetDistance(pos, ENEMY.hero.pos) < 15)
             {
-                HERO.GetHit(1);
+                ENEMY.hero.GetHit(1);
                 dead = true;
             }
         }

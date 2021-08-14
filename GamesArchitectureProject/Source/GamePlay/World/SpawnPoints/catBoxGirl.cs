@@ -14,6 +14,11 @@ namespace GamesArchitectureProject
         {
             totalSpawns = 0;
             maxSpawns = 5;
+
+            health = 3;
+            healthMax = health;
+
+            spawnTimer = new GameTimer(3000);
         }
 
         

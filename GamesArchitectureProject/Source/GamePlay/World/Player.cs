@@ -23,6 +23,7 @@ namespace GamesArchitectureProject
         public Hero hero;
         public List<Unit> units = new List<Unit>();
         public List<SpawnPoint> spawnPoints = new List<SpawnPoint>();
+        public List<Building> buildings = new List<Building>();
 
         public Player(int ID)
         {
@@ -61,6 +62,18 @@ namespace GamesArchitectureProject
                     i--;
                 }
             }
+
+            // Update buildings
+            for (int i = 0; i < buildings.Count; i++)
+            {
+                buildings[i].Update(OFFSET, ENEMY);
+
+                if (buildings[i].dead)
+                {
+                    buildings.RemoveAt(i);
+                    i--;
+                }
+            }
         }
 
         public virtual void AddUnit(object INFO)
@@ -75,6 +88,16 @@ namespace GamesArchitectureProject
             catBoxGirl tempSpawnPoint = (catBoxGirl)INFO;
             tempSpawnPoint.ownerId = id;
             spawnPoints.Add(tempSpawnPoint);
+        }
+
+        public virtual List<AttackableObject> GetAllObjects()
+        {
+            List<AttackableObject> tempObjects = new List<AttackableObject>();
+            tempObjects.AddRange(units.ToList<AttackableObject>());
+            tempObjects.AddRange(spawnPoints.ToList<AttackableObject>());
+            tempObjects.AddRange(buildings.ToList<AttackableObject>());
+
+            return tempObjects;
         }
 
         public virtual void ChangeScore(int SCORE)
@@ -95,6 +118,13 @@ namespace GamesArchitectureProject
             for (int i = 0; i < units.Count; i++)
             {
                 units[i].Draw(OFFSET);
+
+            }
+
+            // Draw Buildings
+            for (int i = 0; i < buildings.Count; i++)
+            {
+                buildings[i].Draw(OFFSET);
 
             }
 
