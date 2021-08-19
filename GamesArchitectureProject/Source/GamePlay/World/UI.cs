@@ -8,12 +8,16 @@ namespace GamesArchitectureProject
 {
     public class UI
     {
+        public Basic2d pauseOverlay;
+
         public SpriteFont font;
 
         public QuantityDisplayBar healthBar;
 
         public UI()
         {
+            pauseOverlay = new Basic2d("2d\\Misc\\PauseOverlay", new Vector2(Globals.screenWidth/2, Globals.screenHeight/2), new Vector2(300,300));
+
             font = Globals.content.Load<SpriteFont> ("Fonts\\Arial16");
 
             healthBar = new QuantityDisplayBar(new Vector2(104, 16), 2, Color.Red);
@@ -33,14 +37,21 @@ namespace GamesArchitectureProject
             //Draw
             Globals.spriteBatch.DrawString(font, tempStr, new Vector2(Globals.screenWidth/2 - strDims.X/2, Globals.screenHeight - 40), Color.Black);
 
-            // Draw healthBar
-            healthBar.Draw(new Vector2(20, Globals.screenHeight - 40));
 
             if (WORLD.user.hero.dead || WORLD.user.buildings.Count <= 0)
             {
                 tempStr = "Press Enter to Restart!";
                 strDims = font.MeasureString(tempStr);
                 Globals.spriteBatch.DrawString(font, tempStr, new Vector2(Globals.screenWidth/2 - strDims.X/2, Globals.screenHeight/2), Color.Black);
+            }
+
+            // Draw healthBar
+            healthBar.Draw(new Vector2(20, Globals.screenHeight - 40));
+
+
+            if (GameGlobals.paused)
+            {
+                pauseOverlay.Draw(Vector2.Zero);
             }
         }
     }

@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml.Linq;
 
 namespace GamesArchitectureProject
 {
@@ -31,11 +32,11 @@ namespace GamesArchitectureProject
             GameGlobals.PassMob = AddMob;
             GameGlobals.PassSpawnPoint = AddSpawnPoint;
 
-            // ID 1 since it's not a multiplayer game anyway, but it could be in future implementations!
-            user = new User(1);
-            aIPlayer = new AIPlayer(2);
+            GameGlobals.paused = false;
 
             offset = new Vector2(0, 0);
+
+            LoadData(1);
 
             // Initialize UI
             ui = new UI();
@@ -43,7 +44,7 @@ namespace GamesArchitectureProject
 
         public virtual void Update()
         {
-            if (!user.hero.dead && user.buildings.Count > 0)
+            if (!user.hero.dead && user.buildings.Count > 0 && !GameGlobals.paused)
             {
                 allObjects.Clear();
                 allObjects.AddRange(user.GetAllObjects());
@@ -63,7 +64,6 @@ namespace GamesArchitectureProject
                         i--;
                     }
                 }
-
             }
             else
             {
@@ -71,7 +71,16 @@ namespace GamesArchitectureProject
                 {
                     ResetWorld(null);
                 }
+
+                
             }
+
+            if (Globals.keyboard.GetSinglePress("Space"))
+            {
+
+                GameGlobals.paused = !GameGlobals.paused;
+            }
+
 
             ui.Update(this);
         }
@@ -109,6 +118,28 @@ namespace GamesArchitectureProject
             {
                 aIPlayer.AddSpawnPoint(tempSpawnPoint);
             }
+        }
+
+        public virtual void LoadData(int LEVEL)
+        {
+           
+            XDocument xml = XDocument.Load("XML\\Levels\\Level"+LEVEL+".xml");
+            XElement tempElement = null;
+            if (xml.Element("Root").Element("User") != null)
+            {
+                tempElement = xml.Element("Root").Element("User");
+            }
+
+            // ID 1 since it's not a multiplayer game anyway, but it could be in future implementations!
+            user = new User(1, tempElement);
+
+            tempElement = null;
+            if (xml.Element("Root").Element("AIPlayer") != null)
+            {
+                tempElement = xml.Element("Root").Element("AIPlayer");
+            }
+
+            aIPlayer = new AIPlayer(2, tempElement);
         }
 
         public virtual void Draw(Vector2 OFFSET)

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Xml.Linq;
 
 namespace GamesArchitectureProject
 {
@@ -10,7 +11,7 @@ namespace GamesArchitectureProject
         int maxSpawns, totalSpawns;
 
         // http://pixelartmaker.com/art/870e175101a248f
-        public catBoxGirl(Vector2 POS, int OWNERID) : base("2d\\SpawnPoints\\catBoxGirl", POS, new Vector2(45, 45), OWNERID)
+        public catBoxGirl(Vector2 POS, int OWNERID, XElement DATA) : base("2d\\SpawnPoints\\catBoxGirl", POS, new Vector2(45, 45), OWNERID, DATA)
         {
             totalSpawns = 0;
             maxSpawns = 5;

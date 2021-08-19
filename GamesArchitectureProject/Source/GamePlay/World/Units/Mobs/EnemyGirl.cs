@@ -38,7 +38,7 @@ namespace GamesArchitectureProject
 
         public virtual void SpawnCatBox()
         {
-            GameGlobals.PassSpawnPoint(new catBoxGirl(new Vector2(pos.X, pos.Y), ownerId));
+            GameGlobals.PassSpawnPoint(new catBoxGirl(new Vector2(pos.X, pos.Y), ownerId, null));
         }
 
         public override void Draw(Vector2 OFFSET)

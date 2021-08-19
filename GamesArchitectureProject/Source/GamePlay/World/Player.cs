@@ -25,9 +25,11 @@ namespace GamesArchitectureProject
         public List<SpawnPoint> spawnPoints = new List<SpawnPoint>();
         public List<Building> buildings = new List<Building>();
 
-        public Player(int ID)
+        public Player(int ID, XElement DATA)
         {
             id = ID;
+
+            LoadData(DATA);
         }
 
         public virtual void Update(Player ENEMY, Vector2 OFFSET)
@@ -90,6 +92,11 @@ namespace GamesArchitectureProject
             spawnPoints.Add(tempSpawnPoint);
         }
 
+        public virtual void ChangeScore(int SCORE)
+        {
+
+        }
+
         public virtual List<AttackableObject> GetAllObjects()
         {
             List<AttackableObject> tempObjects = new List<AttackableObject>();
@@ -100,9 +107,34 @@ namespace GamesArchitectureProject
             return tempObjects;
         }
 
-        public virtual void ChangeScore(int SCORE)
+        public virtual void LoadData(XElement DATA)
         {
+            List<XElement> spawnList = (from t in DATA.Descendants("SpawnPoint")
+                                        select t).ToList<XElement>();
 
+            Type sType = null;
+
+            for (int i = 0; i < spawnList.Count; i++)
+            {
+                sType = Type.GetType("GamesArchitectureProject." + spawnList[i].Element("type").Value, true);
+                spawnPoints.Add((SpawnPoint)Activator.CreateInstance(sType, new Vector2(Convert.ToInt32(spawnList[i].Element("Pos").Element("x").Value, Globals.culture), Convert.ToInt32(spawnList[i].Element("Pos").Element("y").Value, Globals.culture)), id, spawnList[i]));
+            }
+
+
+            List<XElement> buildingList = (from t in DATA.Descendants("Building")
+                                        select t).ToList<XElement>();
+
+            for (int i = 0; i < buildingList.Count; i++)    
+            {
+                sType = Type.GetType("GamesArchitectureProject." + buildingList[i].Element("type").Value, true);
+
+                buildings.Add((Building)Activator.CreateInstance(sType, new Vector2(Convert.ToInt32(buildingList[i].Element("Pos").Element("x").Value, Globals.culture), Convert.ToInt32(buildingList[i].Element("Pos").Element("y").Value, Globals.culture)), id));
+            }
+            
+            if (DATA.Element("Hero") != null)
+            {
+                hero = new Hero("2d\\matias", new Vector2(Convert.ToInt32(DATA.Element("Hero").Element("Pos").Element("x").Value, Globals.culture), Convert.ToInt32(DATA.Element("Hero").Element("Pos").Element("y").Value, Globals.culture)), new Vector2(64, 64), id);
+            }
         }
 
         public virtual void Draw(Vector2 OFFSET)

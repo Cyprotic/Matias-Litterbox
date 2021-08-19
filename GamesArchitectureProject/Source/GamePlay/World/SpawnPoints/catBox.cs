@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Xml.Linq;
 
 namespace GamesArchitectureProject
 {
@@ -9,7 +10,7 @@ namespace GamesArchitectureProject
     {
 
         // http://pixelartmaker.com/art/870e175101a248f
-        public catBox(Vector2 POS, int OWNERID) : base("2d\\SpawnPoints\\catSpawn", POS, new Vector2(45, 45), OWNERID)
+        public catBox(Vector2 POS, int OWNERID, XElement DATA) : base("2d\\SpawnPoints\\catSpawn", POS, new Vector2(45, 45), OWNERID, DATA)
         {
             health = 10;
             healthMax = health;
@@ -24,20 +25,26 @@ namespace GamesArchitectureProject
         public override void SpawnMob()
         {
             // The +1 is for a possible list so it doesnt overflow our parameters, for this case it is not necessary
-            int num = Globals.rand.Next(0, 10 + 1);
+            int num = Globals.rand.Next(0, 100 + 1);
 
             Mob tempMob = null;
+            int total = 0;
 
-            // Chance to spawn a normal cat
-            if (num < 5)
+            for(int i  = 0; i < mobChoices.Count; i++)
             {
-                tempMob = new EnemyCat(new Vector2(pos.X, pos.Y), ownerId);
+                total += mobChoices[i].rate;
+
+                // Chance to spawn a normal cat
+                if (num < total)
+                {
+                    Type sType = Type.GetType("GamesArchitectureProject." + mobChoices[i].mobStr, true);
+
+                    tempMob = ((Mob)Activator.CreateInstance(sType, new Vector2(pos.X, pos.Y), ownerId));
+                    
+                    break;
+                }
             }
-            // Chance to spawn a white fast cat
-            else if (num < 8)
-            {
-                tempMob = new EnemyGirl(new Vector2(pos.X, pos.Y), ownerId);
-            }
+            
             if (tempMob != null)
             {
                 GameGlobals.PassMob(tempMob);
