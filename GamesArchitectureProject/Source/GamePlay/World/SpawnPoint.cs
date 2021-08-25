@@ -28,7 +28,7 @@ namespace GamesArchitectureProject
         public override void Update(Vector2 OFFSET)
         {
             spawnTimer.UpdateTimer();
-            if (spawnTimer.Test())
+            if (spawnTimer.Test()) // If the timer has ended, spawn it
             {
                 SpawnMob();
                 spawnTimer.ResetToZero();
@@ -37,7 +37,7 @@ namespace GamesArchitectureProject
             base.Update(OFFSET);
         }
 
-        public virtual void LoadData(XElement DATA)
+        public virtual void LoadData(XElement DATA) // Loads the data for the XML file of timer, rate and mobs
         {
             if (DATA != null)
             {
@@ -58,7 +58,7 @@ namespace GamesArchitectureProject
             dead = true;
         }
 
-        public virtual void SpawnMob()
+        public virtual void SpawnMob() // And spawns them
         {
             GameGlobals.PassMob(new EnemyCat(new Vector2(pos.X, pos.Y), new Vector2(1, 1), ownerId));
         }

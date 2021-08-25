@@ -38,13 +38,13 @@ namespace GamesArchitectureProject
 
         public static GameTime gameTime;
 
-
-        public static float GetDistance(Vector2 pos, Vector2 target)
+        // Gets a distance between self and target
+        public static float GetDistance(Vector2 pos, Vector2 target) 
         {
             return (float)Math.Sqrt(Math.Pow(pos.X - target.X, 2) + Math.Pow(pos.Y - target.Y, 2));
         }
 
-        // Gets a distance between self and target
+        // Get the radial/rotation movement to the target
         public static Vector2 RadialMovement(Vector2 focus, Vector2 pos, float speed)
         {
             float dist = Globals.GetDistance(pos, focus);
@@ -59,7 +59,7 @@ namespace GamesArchitectureProject
             }
         }
 
-
+        // Rotates toward a target position
         public static float RotateTowards(Vector2 Pos, Vector2 focus)
         {
 
@@ -67,14 +67,14 @@ namespace GamesArchitectureProject
             if (Pos.Y - focus.Y != 0)
             {
                 h = (float)Math.Sqrt(Math.Pow(Pos.X - focus.X, 2) + Math.Pow(Pos.Y - focus.Y, 2));
-                sineTheta = (float)(Math.Abs(Pos.Y - focus.Y) / h); //* ((item.Pos.Y-focus.Y)/(Math.Abs(item.Pos.Y-focus.Y))));
+                sineTheta = (float)(Math.Abs(Pos.Y - focus.Y) / h);
             }
             else
             {
                 h = Pos.X - focus.X;
                 sineTheta = 0;
             }
-
+            // Calculate the first angle and add quadrants to fix the issue with the geometry
             angle = (float)Math.Asin(sineTheta);
 
             // Drawing diagonial lines here.

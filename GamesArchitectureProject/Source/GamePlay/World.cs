@@ -51,7 +51,7 @@ namespace GamesArchitectureProject
         public virtual void Update()
         {
 
-            if (!user.hero.dead && user.buildings.Count > 0 && !GameGlobals.paused)
+            if (!user.hero.dead && user.buildings.Count > 0 && !GameGlobals.paused) // If the player is alive and the game unpause, update everything in the world
             {
                 allObjects.Clear();
                 allObjects.AddRange(user.GetAllObjects());
@@ -73,13 +73,13 @@ namespace GamesArchitectureProject
                 }
             }
 
-            if (Globals.keyboard.GetSinglePress("Space"))
+            if (Globals.keyboard.GetSinglePress("Space")) // Trigger for pausing/unpausing the game
             {
                 GameGlobals.paused = !GameGlobals.paused;
             }
 
 
-            if (user.hero.dead || user.buildings.Count <= 0)
+            if (user.hero.dead || user.buildings.Count <= 0) // if the player dies, grab the score and update it in the highscores
             {
                 scoreManager.Add(new GameGlobals()
                 {
@@ -87,17 +87,15 @@ namespace GamesArchitectureProject
                 }
                 );
                 ScoreManager.Save(scoreManager);
-
+                // Then reset the world and change screen
                 ResetWorld(null);
                 Globals.gameState = 2;
             }
 
-
-
             ui.Update(this);
         }
 
-        public virtual void AddMob(object INFO)
+        public virtual void AddMob(object INFO) // Adds to the list
         {
             Unit tempUnit = (Unit)INFO;
 
@@ -113,12 +111,12 @@ namespace GamesArchitectureProject
             aIPlayer.AddUnit((Mob)INFO);
         }
 
-        public virtual void AddProjectile(object INFO)
+        public virtual void AddProjectile(object INFO)// Adds to the list
         {
             projectiles.Add((Projectile2d)INFO);
         }
 
-        public virtual void AddSpawnPoint(object INFO)
+        public virtual void AddSpawnPoint(object INFO)// Adds to the list
         {
             catBoxGirl tempSpawnPoint = (catBoxGirl)INFO;
 
@@ -132,7 +130,7 @@ namespace GamesArchitectureProject
             }
         }
 
-        public virtual void LoadData(int LEVEL)
+        public virtual void LoadData(int LEVEL)// Loads the data of the world objects that start on the map already
         {
            
             XDocument xml = XDocument.Load("XML\\Levels\\Level"+LEVEL+".xml");

@@ -28,7 +28,7 @@ namespace GamesArchitectureProject
 
         }
 
-        public virtual void Update()
+        public virtual void Update() // Sets this keyboard as the monogame keyboard
         {
             newKeyboard = Microsoft.Xna.Framework.Input.Keyboard.GetState();
 
@@ -48,7 +48,7 @@ namespace GamesArchitectureProject
         }
 
 
-        public bool GetPress(string KEY)
+        public bool GetPress(string KEY) // Checks if the key pressed has any outputin our key.cs class
         {
 
             for (int i = 0; i < pressedKeys.Count; i++)
@@ -60,16 +60,12 @@ namespace GamesArchitectureProject
                 }
 
             }
-
-
             return false;
         }
 
 
-        public virtual void GetPressedKeys()
+        public virtual void GetPressedKeys() // Receives output from the keyboard
         {
-            bool found = false;
-
             pressedKeys.Clear();
             for (int i = 0; i < newKeyboard.GetPressedKeys().Length; i++)
             {
@@ -79,7 +75,7 @@ namespace GamesArchitectureProject
             }
         }
 
-        public bool GetSinglePress(string KEY)
+        public bool GetSinglePress(string KEY) // Receives output but it doesnt allow more than one and once
         {
             for (int i=0; i < pressedKeys.Count; i++)
             {

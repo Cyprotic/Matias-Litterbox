@@ -34,7 +34,7 @@ namespace GamesArchitectureProject
         public virtual void Update()
         {
             
-            if (Globals.keyboard.GetSinglePress("Enter"))
+            if (Globals.keyboard.GetSinglePress("Enter")) // If pressed invoke a delegate to change the level and set the score to 0
             {
                 GameGlobals.score = 0;
                 ChangeLevel.Invoke(1);

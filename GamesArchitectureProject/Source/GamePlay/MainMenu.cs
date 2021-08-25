@@ -22,12 +22,12 @@ namespace GamesArchitectureProject
 
         public virtual void Update()
         {
-            if (Globals.keyboard.GetSinglePress("Space"))
+            if (Globals.keyboard.GetSinglePress("Space")) // If pressed, invoke a delegate to change the level to 1
             {
                 PlayKey.Invoke(1);
             }
 
-            if (Globals.keyboard.GetSinglePress("Esc"))
+            if (Globals.keyboard.GetSinglePress("Esc")) // If pressed, invoke a delegate to run a function that quits the game
             {
                 ExitKey.Invoke(null);
             }

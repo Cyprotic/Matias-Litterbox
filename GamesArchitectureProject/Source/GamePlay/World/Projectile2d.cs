@@ -24,7 +24,7 @@ namespace GamesArchitectureProject
             speed = 5.0f;
 
             owner = OWNER;
-
+            // The direction is always the opposite of the owners, and we normalize it
             direction = TARGET - owner.pos;
             direction.Normalize();
 
@@ -34,24 +34,24 @@ namespace GamesArchitectureProject
             timer = new GameTimer(1500);
         }
 
-        public virtual void Update(Vector2 OFFSET, List<AttackableObject> UNITS)
+        public virtual void Update(Vector2 OFFSET, List<AttackableObject> UNITS) // Update it
         {
             pos += direction * speed;
 
 
             timer.UpdateTimer();
-            if (timer.Test())
+            if (timer.Test())// Check if the timer ended
             {
                 done = true;
             }
 
-            if (HitSomething(UNITS))
+            if (HitSomething(UNITS)) // Or it hit something
             {
                 done = true;
             }
         }
 
-        public virtual bool HitSomething(List<AttackableObject> UNITS)
+        public virtual bool HitSomething(List<AttackableObject> UNITS) // If it did hit something, tell the unity that got hit
         {
             for(int i = 0; i < UNITS.Count; i++)
             {

@@ -50,7 +50,7 @@ namespace GamesArchitectureProject
         #endregion
         public override void Update(Vector2 OFFSET)
         {
-            if (frameAnimations && frameAnimationList != null && frameAnimationList.Count > currentAnimation)
+            if (frameAnimations && frameAnimationList != null && frameAnimationList.Count > currentAnimation) // If there are any animations to play, play them
             {
                 frameAnimationList[currentAnimation].Update();
             }
@@ -89,9 +89,8 @@ namespace GamesArchitectureProject
         public override void Draw(Vector2 screenShift)
         {
 
-            if (frameAnimations && frameAnimationList[currentAnimation].Frames > 0)
+            if (frameAnimations && frameAnimationList[currentAnimation].Frames > 0) // If there are animations play them, if not it is a basic2d object
             {
-                //Globals.spriteBatch.Draw(myModel, new Rectangle((int)(pos.X+screenShift.X), (int)(pos.Y+screenShift.Y), (int)dims.X, (int)dims.Y), new Rectangle((int)((currentFrame.X-1)*dims.X), (int)((currentFrame.Y-1)*dims.Y), (int)(currentFrame.X*dims.X), (int)(currentFrame.Y*dims.Y)), color, rot, new Vector2(myModel.Bounds.Width/2, myModel.Bounds.Height/2), new SpriteEffects(), 0);
                 frameAnimationList[currentAnimation].Draw(myModel, dims, frameSize, screenShift, pos, rot, color, new SpriteEffects());
 
             }

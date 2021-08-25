@@ -27,6 +27,7 @@ namespace GamesArchitectureProject
         // Initialization logic
         protected override void Initialize()
         {
+            // Resolution
             Globals.screenWidth = 1600;
             Globals.screenHeight = 900;
 
@@ -52,6 +53,7 @@ namespace GamesArchitectureProject
             // Load the custom mouse input
             Globals.mouse = new MouseControl();
 
+            // Setting all the states of the game
             gamePlay = new GamePlay(ChangeGameState);
             mainMenu = new MainMenu(ChangeGameState, ExitGame);
             lostScreen = new LostScreen(ChangeGameState);
@@ -128,6 +130,7 @@ namespace GamesArchitectureProject
                 lostScreen.Draw();
             }
 
+            // Draw the custom cursor in the current position
             cursor.Draw(new Vector2(Globals.mouse.newMousePos.X, Globals.mouse.newMousePos.Y), new Vector2(0, 0), Color.White);
             Globals.spriteBatch.End();
 

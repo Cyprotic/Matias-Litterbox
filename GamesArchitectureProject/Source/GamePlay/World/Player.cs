@@ -122,7 +122,7 @@ namespace GamesArchitectureProject
         //Deal with only loading the data for the current level by getting it from the XML file using linq
         public virtual void LoadData(XElement DATA)
         {
-            List<XElement> spawnList = (from t in DATA.Descendants("SpawnPoint")
+            List<XElement> spawnList = (from t in DATA.Descendants("SpawnPoint") // http://pixelartmaker.com/art/870e175101a248f
                                         select t).ToList<XElement>();
 
             Type sType = null;

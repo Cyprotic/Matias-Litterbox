@@ -35,7 +35,7 @@ namespace GamesArchitectureProject
 
         }
 
-
+        // Setup any key with the game might have and the desired output
         public void MakePrint(string KEY)
         {
             display = KEY;

@@ -44,7 +44,7 @@ namespace GamesArchitectureProject
             healthBar.Draw(new Vector2(20, Globals.screenHeight - 40));
 
 
-            if (GameGlobals.paused)
+            if (GameGlobals.paused) // If the game is pauses draw the pause icon
             {
                 pauseOverlay.Draw(Vector2.Zero);
             }

@@ -36,9 +36,6 @@ namespace GamesArchitectureProject
             firstMousePos = new Vector2(newMouse.Position.X, newMouse.Position.Y);
 
             GetMouseAndAdjust();
-
-            //screenLoc = new Vector2((int)(systemCursorPos.X/Globals.screenWidth), (int)(systemCursorPos.Y/Globals.screenHeight));
-
         }
 
         #region Properties
@@ -64,14 +61,12 @@ namespace GamesArchitectureProject
         {
             GetMouseAndAdjust();
 
-
+             // If there is a click
             if (newMouse.LeftButton == Microsoft.Xna.Framework.Input.ButtonState.Pressed && oldMouse.LeftButton == Microsoft.Xna.Framework.Input.ButtonState.Released)
             {
                 firstMouse = newMouse;
                 firstMousePos = newMousePos = GetScreenPos(firstMouse);
             }
-
-
         }
 
         public void UpdateOld()
@@ -80,28 +75,14 @@ namespace GamesArchitectureProject
             oldMousePos = GetScreenPos(oldMouse);
         }
 
-        public virtual float GetDistanceFromClick()
-        {
-            return Globals.GetDistance(newMousePos, firstMousePos);
-        }
-
-        public virtual void GetMouseAndAdjust()
+        public virtual void GetMouseAndAdjust() // Move the mouse to new position
         {
             newMouse = Mouse.GetState();
             newMousePos = GetScreenPos(newMouse);
 
         }
 
-
-
-
-        public int GetMouseWheelChange()
-        {
-            return newMouse.ScrollWheelValue - oldMouse.ScrollWheelValue;
-        }
-
-
-        public Vector2 GetScreenPos(MouseState MOUSE)
+        public Vector2 GetScreenPos(MouseState MOUSE) // Gets the current screen position of the mouse
         {
             Vector2 tempVec = new Vector2(MOUSE.Position.X, MOUSE.Position.Y);
 
@@ -132,9 +113,6 @@ namespace GamesArchitectureProject
                     dragging = true;
                 }
             }
-
-
-
             return holding;
         }
 
@@ -172,9 +150,6 @@ namespace GamesArchitectureProject
                     rightDrag = true;
                 }
             }
-
-
-
             return holding;
         }
 

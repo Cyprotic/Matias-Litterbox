@@ -39,22 +39,17 @@ namespace GamesArchitectureProject
 
 
 
-        public void UpdateTimer()
+        public void UpdateTimer() // Timer based on the game time
         {
             timer += Globals.gameTime.ElapsedGameTime;
         }
 
-        public void UpdateTimer(float SPEED)
-        {
-            timer += TimeSpan.FromTicks((long)(Globals.gameTime.ElapsedGameTime.Ticks * SPEED));
-        }
-
-        public virtual void AddToTimer(int MSEC)
+        public virtual void AddToTimer(int MSEC) // Adding more time to the timer
         {
             timer += TimeSpan.FromMilliseconds((long)(MSEC));
         }
 
-        public bool Test()
+        public bool Test() // Check if it ended
         {
             if (timer.TotalMilliseconds >= mSec || goodToGo)
             {
@@ -66,7 +61,7 @@ namespace GamesArchitectureProject
             }
         }
 
-        public void Reset()
+        public void Reset() // Reset it
         {
             timer = timer.Subtract(new TimeSpan(0, 0, mSec / 60000, mSec / 1000, mSec % 1000));
             if (timer.TotalMilliseconds < 0)
@@ -76,31 +71,13 @@ namespace GamesArchitectureProject
             goodToGo = false;
         }
 
-        public void Reset(int NEWTIMER)
-        {
-            timer = TimeSpan.Zero;
-            MSec = NEWTIMER;
-            goodToGo = false;
-        }
-
-        public void ResetToZero()
+        public void ResetToZero()// Reset it to zero
         {
             timer = TimeSpan.Zero;
             goodToGo = false;
         }
 
-        public virtual XElement ReturnXML()
-        {
-            XElement xml = new XElement("Timer",
-                                    new XElement("mSec", mSec),
-                                    new XElement("timer", Timer));
-
-
-
-            return xml;
-        }
-
-        public void SetTimer(TimeSpan TIME)
+        public void SetTimer(TimeSpan TIME)// Set the timer to a specific value
         {
             timer = TIME;
         }

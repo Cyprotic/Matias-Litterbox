@@ -22,8 +22,8 @@ namespace GamesArchitectureProject
             barBKG = new Basic2d("2d\\Misc\\shade", new Vector2(0, 0), new Vector2(DIMS.X , DIMS.Y));
         }
 
-        public virtual void Update(float CURRENT, float MAX)
-        {
+        public virtual void Update(float CURRENT, float MAX) 
+        {// Simple math to reduce the health in the bar given the current and maximum of it
             bar.dims = new Vector2(CURRENT / MAX * (barBKG.dims.X - border * 2), bar.dims.Y);
         }
 

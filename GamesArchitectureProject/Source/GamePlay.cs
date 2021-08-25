@@ -21,7 +21,7 @@ namespace GamesArchitectureProject
             ChangeGameState = CHANGEGAMESTATE;
         }
 
-        public virtual void Update()
+        public virtual void Update() 
         {
             if (playState == 0)
             {
@@ -29,7 +29,7 @@ namespace GamesArchitectureProject
             }
         }
 
-        public virtual void ResetWorld(object INFO)
+        public virtual void ResetWorld(object INFO) // Reset the world by just creating a new instance of it
         {
             world = new World(ResetWorld, ChangeGameState);
         }

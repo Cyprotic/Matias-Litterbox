@@ -14,7 +14,7 @@ namespace GamesArchitectureProject
 
         public Texture2D myModel;
 
-        public Basic2d (string PATH, Vector2 POS, Vector2 DIMS)
+        public Basic2d (string PATH, Vector2 POS, Vector2 DIMS) // This class is for objects that don´t require animations
         {
             pos = POS;
             dims = DIMS;

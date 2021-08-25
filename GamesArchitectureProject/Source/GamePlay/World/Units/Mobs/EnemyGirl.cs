@@ -11,8 +11,7 @@ namespace GamesArchitectureProject
         public GameTimer spawnTimer;
 
         //https://pixlr.com/stock/details/1001468272-pixel-art-woman-fashion/ GIRL
-        //https://freesvg.org/vector-illustration-of-fist-as-mouse-pointer FIST
-        public EnemyGirl(Vector2 POS, Vector2 FRAMES, int OWNERID) : base("2d\\Units\\Mobs\\girl", POS, new Vector2(45, 45), FRAMES, OWNERID)
+        public EnemyGirl(Vector2 POS, Vector2 FRAMES, int OWNERID) : base("2d\\Units\\Mobs\\girl", POS, new Vector2(85, 85), FRAMES, OWNERID)
         {
             speed = 1.4f;
 
