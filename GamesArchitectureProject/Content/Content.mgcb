@@ -61,6 +61,18 @@
 /processorParam:TextureFormat=Color
 /build:2d/Misc/PauseOverlay.png
 
+#begin 2d/Projectiles/fist.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:2d/Projectiles/fist.png
+
 #begin 2d/Projectiles/furball.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -121,7 +133,7 @@
 /processorParam:TextureFormat=Color
 /build:2d/UI/BackGrounds/MainMenuBkg.png
 
-#begin 2d/Units/heroSheet.png
+#begin 2d/Units/matiasSheet.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -131,7 +143,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:2d/Units/heroSheet.png
+/build:2d/Units/matiasSheet.png
 
 #begin 2d/Units/Mobs/cat1.png
 /importer:TextureImporter

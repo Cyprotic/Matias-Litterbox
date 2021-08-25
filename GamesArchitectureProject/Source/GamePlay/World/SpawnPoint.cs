@@ -12,7 +12,7 @@ namespace GamesArchitectureProject
         public List<MobChoice> mobChoices = new List<MobChoice>();
 
         public GameTimer spawnTimer = new GameTimer(2400);
-        public SpawnPoint(string PATH, Vector2 POS, Vector2 DIMS, int OWNERID, XElement DATA) : base(PATH, POS, DIMS, OWNERID)
+        public SpawnPoint(string PATH, Vector2 POS, Vector2 DIMS, Vector2 FRAMES, int OWNERID, XElement DATA) : base(PATH, POS, DIMS, FRAMES, OWNERID)
         {
             dead = false;
 
@@ -60,7 +60,7 @@ namespace GamesArchitectureProject
 
         public virtual void SpawnMob()
         {
-            GameGlobals.PassMob(new EnemyCat(new Vector2(pos.X, pos.Y), ownerId));
+            GameGlobals.PassMob(new EnemyCat(new Vector2(pos.X, pos.Y), new Vector2(1, 1), ownerId));
         }
 
         public override void Draw(Vector2 OFFSET)

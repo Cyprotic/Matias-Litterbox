@@ -9,7 +9,7 @@ namespace GamesArchitectureProject
     {
         
         //https://www.pinterest.com/pin/344032859020619279/
-        public EnemyCat(Vector2 POS, int OWNERID) : base("2d\\Units\\Mobs\\cat1", POS, new Vector2(40,40), OWNERID)
+        public EnemyCat(Vector2 POS, Vector2 FRAMES, int OWNERID) : base("2d\\Units\\Mobs\\cat1", POS, new Vector2(40,40), FRAMES, OWNERID)
         {
             speed = 2.0f;
         }

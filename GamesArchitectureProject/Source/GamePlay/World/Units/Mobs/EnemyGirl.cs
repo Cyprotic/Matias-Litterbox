@@ -12,7 +12,7 @@ namespace GamesArchitectureProject
 
         //https://pixlr.com/stock/details/1001468272-pixel-art-woman-fashion/ GIRL
         //https://freesvg.org/vector-illustration-of-fist-as-mouse-pointer FIST
-        public EnemyGirl(Vector2 POS, int OWNERID) : base("2d\\Units\\Mobs\\girl", POS, new Vector2(45,45), OWNERID)
+        public EnemyGirl(Vector2 POS, Vector2 FRAMES, int OWNERID) : base("2d\\Units\\Mobs\\girl", POS, new Vector2(45, 45), FRAMES, OWNERID)
         {
             speed = 1.4f;
 
@@ -21,6 +21,31 @@ namespace GamesArchitectureProject
 
             spawnTimer = new GameTimer(8000);
             spawnTimer.AddToTimer(4000);
+
+            attackRange = 300;
+        }
+
+        public override void AI(Player ENEMY)
+        {
+
+            if (ENEMY.hero != null && (Globals.GetDistance(pos, ENEMY.hero.pos) < attackRange * .9f || isAttacking))
+            {
+                isAttacking = true;
+
+                attackTimer.UpdateTimer();
+
+                if (attackTimer.Test())
+                {
+                    GameGlobals.PassProjectile(new Fist(new Vector2(pos.X, pos.Y), this, new Vector2(ENEMY.hero.pos.X, ENEMY.hero.pos.Y)));
+
+                    attackTimer.ResetToZero();
+                    isAttacking = false;
+                }
+            }
+            else
+            {
+                base.AI(ENEMY);
+            }
         }
 
         
@@ -38,7 +63,7 @@ namespace GamesArchitectureProject
 
         public virtual void SpawnCatBox()
         {
-            GameGlobals.PassSpawnPoint(new catBoxGirl(new Vector2(pos.X, pos.Y), ownerId, null));
+            GameGlobals.PassSpawnPoint(new catBoxGirl(new Vector2(pos.X, pos.Y), new Vector2(1, 1), ownerId, null));
         }
 
         public override void Draw(Vector2 OFFSET)

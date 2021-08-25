@@ -22,11 +22,15 @@ namespace GamesArchitectureProject
 
         PassObject ResetWorld, ChangeGameState;
 
+        ScoreManager scoreManager;
+
 
         public World(PassObject RESETWORLD, PassObject CHANGEGAMESTATE)
         {
             ResetWorld = RESETWORLD;
             ChangeGameState = CHANGEGAMESTATE;
+
+            scoreManager = ScoreManager.Load();
 
 
             GameGlobals.PassProjectile = AddProjectile;
@@ -77,9 +81,18 @@ namespace GamesArchitectureProject
 
             if (user.hero.dead || user.buildings.Count <= 0)
             {
+                scoreManager.Add(new GameGlobals()
+                {
+                    Value = GameGlobals.score,
+                }
+                );
+                ScoreManager.Save(scoreManager);
+
                 ResetWorld(null);
                 Globals.gameState = 2;
             }
+
+
 
             ui.Update(this);
         }

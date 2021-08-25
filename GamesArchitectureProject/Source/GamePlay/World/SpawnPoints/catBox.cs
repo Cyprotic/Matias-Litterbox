@@ -10,7 +10,7 @@ namespace GamesArchitectureProject
     {
 
         // http://pixelartmaker.com/art/870e175101a248f
-        public catBox(Vector2 POS, int OWNERID, XElement DATA) : base("2d\\SpawnPoints\\catSpawn", POS, new Vector2(45, 45), OWNERID, DATA)
+        public catBox(Vector2 POS, Vector2 FRAMES, int OWNERID, XElement DATA) : base("2d\\SpawnPoints\\catSpawn", POS, new Vector2(45, 45), FRAMES, OWNERID, DATA)
         {
             health = 10;
             healthMax = health;
@@ -39,7 +39,7 @@ namespace GamesArchitectureProject
                 {
                     Type sType = Type.GetType("GamesArchitectureProject." + mobChoices[i].mobStr, true);
 
-                    tempMob = ((Mob)Activator.CreateInstance(sType, new Vector2(pos.X, pos.Y), ownerId));
+                    tempMob = ((Mob)Activator.CreateInstance(sType, new Vector2(pos.X, pos.Y), new Vector2(1, 1), ownerId));
                     
                     break;
                 }

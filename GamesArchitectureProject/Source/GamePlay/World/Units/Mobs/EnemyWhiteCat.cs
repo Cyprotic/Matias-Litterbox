@@ -11,7 +11,7 @@ namespace GamesArchitectureProject
         public GameTimer spawnTimer;
 
         //https://www.pikpng.com/transpng/xwRRoR/
-        public EnemyWhiteCat(Vector2 POS, int OWNERID) : base("2d\\Units\\Mobs\\catWhite", POS, new Vector2(25,25), OWNERID)
+        public EnemyWhiteCat(Vector2 POS, Vector2 FRAMES, int OWNERID) : base("2d\\Units\\Mobs\\catWhite", POS, new Vector2(25,25), FRAMES, OWNERID)
         {
             speed = 2.5f;
             

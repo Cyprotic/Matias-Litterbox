@@ -40,13 +40,6 @@ namespace GamesArchitectureProject
             Globals.spriteBatch.DrawString(font, tempStr, new Vector2(Globals.screenWidth/2 - strDims.X/2, Globals.screenHeight - 40), Color.Black);
 
 
-            //if (WORLD.user.hero.dead || WORLD.user.buildings.Count <= 0)
-            //{
-            //    tempStr = "Press Enter to Restart!";
-             //   strDims = font.MeasureString(tempStr);
-             //   Globals.spriteBatch.DrawString(font, tempStr, new Vector2(Globals.screenWidth/2 - strDims.X/2, Globals.screenHeight/2), Color.Black);
-            //}
-
             // Draw healthBar
             healthBar.Draw(new Vector2(20, Globals.screenHeight - 40));
 

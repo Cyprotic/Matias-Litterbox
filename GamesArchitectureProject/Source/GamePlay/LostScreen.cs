@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Microsoft.Xna.Framework.Graphics;
+using System.Linq;
 
 namespace GamesArchitectureProject
 {
@@ -14,10 +15,13 @@ namespace GamesArchitectureProject
 
         public SpriteFont font;
 
+        ScoreManager scoreManager;
+
 
         public LostScreen(PassObject CHANGELEVEL)
         {
             ChangeLevel = CHANGELEVEL;
+
 
             font = Globals.content.Load<SpriteFont>("Fonts\\Arial16");
 
@@ -39,14 +43,25 @@ namespace GamesArchitectureProject
 
         public virtual void Draw()
         {
+            // Load in our score manager
+            scoreManager = ScoreManager.Load();
+            // BackGround lost
             bkg_lost.Draw(Vector2.Zero);
+            
+            // To print
+            string tempStrScore = "Score = " + GameGlobals.score;
+            // Dimensions of font
+            Vector2 strDimsScore = font.MeasureString(tempStrScore);
+            //Draw
+            Globals.spriteBatch.DrawString(font, tempStrScore, new Vector2(Globals.screenWidth / 2 - strDimsScore.X / 2, Globals.screenHeight - 700), Color.Black);
 
             // To print
-            string tempStr = "Score = " + GameGlobals.score;
+            string tempStrHighScore = "Highscores: \n";
             // Dimensions of font
-            Vector2 strDims = font.MeasureString(tempStr);
+            Vector2 strDimsHighScore = font.MeasureString(tempStrHighScore);
             //Draw
-            Globals.spriteBatch.DrawString(font, tempStr, new Vector2(Globals.screenWidth / 2 - strDims.X / 2, Globals.screenHeight - 650), Color.Black);
+            Globals.spriteBatch.DrawString(font, tempStrHighScore + string.Join("\n", scoreManager.Highscores.Select(c => c.Value).ToArray()), new Vector2(Globals.screenWidth / 2 - strDimsHighScore.X / 2, Globals.screenHeight - 670), Color.Black);
+
         }
     }
 }

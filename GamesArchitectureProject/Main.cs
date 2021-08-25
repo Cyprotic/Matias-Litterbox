@@ -18,14 +18,10 @@ namespace GamesArchitectureProject
 
         Basic2d cursor;
 
-        //private Texture2D _logoImage;
-        //private SoundEffect _logoSound;
-
         public Main()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            //IsMouseVisible = true;
         }
 
         // Initialization logic
@@ -118,16 +114,17 @@ namespace GamesArchitectureProject
             // Drawing the states
             if (Globals.gameState == 0)
             {
+                // Draw the main menu screen
                 mainMenu.Draw();
             }
             else if (Globals.gameState == 1)
             {
-                // Update the gameplay logic
+                // Draw the gameplay
                 gamePlay.Draw();
             }
             else if (Globals.gameState == 2)
             {
-                // Update the gameplay logic
+                // Draw the lost screen
                 lostScreen.Draw();
             }
 

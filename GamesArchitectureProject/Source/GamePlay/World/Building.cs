@@ -7,7 +7,7 @@ namespace GamesArchitectureProject
 {
     public class Building : AttackableObject
     {
-        public Building(string PATH, Vector2 POS, Vector2 DIMS, int OWNERID) : base(PATH, POS, DIMS, OWNERID)
+        public Building(string PATH, Vector2 POS, Vector2 DIMS, Vector2 FRAMES, int OWNERID) : base(PATH, POS, DIMS, FRAMES, OWNERID)
         {
             
         }

@@ -46,9 +46,8 @@ namespace GamesArchitectureProject
                 return frames;
             }
         }
+
         #endregion
-
-
         public override void Update(Vector2 OFFSET)
         {
             if (frameAnimations && frameAnimationList != null && frameAnimationList.Count > currentAnimation)
@@ -87,7 +86,6 @@ namespace GamesArchitectureProject
 
             }
         }
-
         public override void Draw(Vector2 screenShift)
         {
 

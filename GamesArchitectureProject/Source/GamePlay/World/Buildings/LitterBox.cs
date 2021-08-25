@@ -8,7 +8,7 @@ namespace GamesArchitectureProject
     public class LitterBox : Building
     {
         //https://www.flaticon.com/free-icon/litter-box_1581662
-        public LitterBox(Vector2 POS, int OWNERID) : base("2d\\buildings\\litterBox", POS, new Vector2 (45, 45), OWNERID)
+        public LitterBox(Vector2 POS, Vector2 FRAMES, int OWNERID) : base("2d\\buildings\\litterBox", POS, new Vector2 (45, 45), FRAMES, OWNERID)
         {
             health = 20;
             healthMax = health;

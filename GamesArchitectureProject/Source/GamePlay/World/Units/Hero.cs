@@ -7,12 +7,17 @@ namespace GamesArchitectureProject
 {
     public class Hero : Unit
     {
-        public Hero(string PATH, Vector2 POS, Vector2 DIMS, int OWNERID) : base(PATH, POS, DIMS, OWNERID)
+        public Hero(string PATH, Vector2 POS, Vector2 DIMS, Vector2 FRAMES, int OWNERID) : base(PATH, POS, DIMS, FRAMES, OWNERID)
         {
             speed = 2;
 
             health = 5;
             healthMax = health;
+
+            frameAnimations = true;
+            currentAnimation = 0;
+            frameAnimationList.Add(new FrameAnimation(new Vector2(frameSize.X, frameSize.Y), frames, new Vector2(0, 0), 4, 133, 0, "Walk"));
+            frameAnimationList.Add(new FrameAnimation(new Vector2(frameSize.X, frameSize.Y), frames, new Vector2(0, 0), 1, 133, 0, "Stand"));
         }
 
         
@@ -22,19 +27,25 @@ namespace GamesArchitectureProject
             if (Globals.keyboard.GetPress("A"))
             {
                 pos = new Vector2(pos.X - speed, pos.Y);
-            }
+                SetAnimationByName("Walk");
+            }else
             if (Globals.keyboard.GetPress("D"))
             {
                 pos = new Vector2(pos.X + speed, pos.Y);
-            }
+                SetAnimationByName("Walk");
+            }else
             if (Globals.keyboard.GetPress("W"))
             {
                 pos = new Vector2(pos.X, pos.Y - speed);
-            }
+                SetAnimationByName("Walk");
+            }else
             if (Globals.keyboard.GetPress("S"))
             {
                 pos = new Vector2(pos.X, pos.Y + speed);
+                SetAnimationByName("Walk");
             }
+            else
+                SetAnimationByName("Stand");
 
             // Rotate character to mouse pointer
             rot = Globals.RotateTowards(pos, new Vector2(Globals.mouse.newMousePos.X, Globals.mouse.newMousePos.Y));

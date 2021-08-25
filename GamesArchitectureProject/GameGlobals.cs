@@ -11,6 +11,7 @@ namespace GamesArchitectureProject
         public static bool restart = false;
 
         public static int score = 0;
+        public int Value { get; set; }
 
         public static PassObject PassProjectile, PassMob, PassSpawnPoint;
     }
