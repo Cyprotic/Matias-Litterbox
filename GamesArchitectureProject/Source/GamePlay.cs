@@ -11,11 +11,14 @@ namespace GamesArchitectureProject
 
         World world;
 
-        public GamePlay()
+        PassObject ChangeGameState;
+
+        public GamePlay(PassObject CHANGEGAMESTATE)
         {
             playState = 0;
 
             ResetWorld(null);
+            ChangeGameState = CHANGEGAMESTATE;
         }
 
         public virtual void Update()
@@ -28,7 +31,7 @@ namespace GamesArchitectureProject
 
         public virtual void ResetWorld(object INFO)
         {
-            world = new World(ResetWorld);
+            world = new World(ResetWorld, ChangeGameState);
         }
 
         public virtual void Draw()

@@ -2,15 +2,19 @@
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
 
 namespace GamesArchitectureProject
 {
     public class Main : Game
     {
         private GraphicsDeviceManager graphics;
-        private SpriteBatch spriteBatch;
 
         GamePlay gamePlay;
+
+        MainMenu mainMenu;
+
+        LostScreen lostScreen;
 
         Basic2d cursor;
 
@@ -46,20 +50,17 @@ namespace GamesArchitectureProject
 
             // https://iconarchive.com/show/flat-gradient-social-icons-by-limav/Aim-icon.html
             cursor = new Basic2d("2d//Misc//cursor", new Vector2(0, 0), new Vector2(28, 28));
-
+            
             // Load the custom keyboard input
             Globals.keyboard = new Keyboard();
             // Load the custom mouse input
             Globals.mouse = new MouseControl();
 
-            gamePlay = new GamePlay();
-
-            //_logoImage = Content.Load<Texture2D>("Logo");
-            //_logoSound = Content.Load<SoundEffect>("Logo_sound"); // https://freesound.org/people/hy96/sounds/48182/
-
-            //_logoSound.Play();
+            gamePlay = new GamePlay(ChangeGameState);
+            mainMenu = new MainMenu(ChangeGameState, ExitGame);
+            lostScreen = new LostScreen(ChangeGameState);
         }
-
+            
         // All the update logic
         protected override void Update(GameTime gameTime)
         {
@@ -72,8 +73,21 @@ namespace GamesArchitectureProject
             Globals.keyboard.Update();
             Globals.mouse.Update();
 
-            // Update the current world
-            gamePlay.Update();
+            // States logic for the different type of screens
+            if (Globals.gameState == 0)
+            {
+                mainMenu.Update();
+            }
+            else if (Globals.gameState == 1)
+            {
+                // Update the gameplay logic
+                gamePlay.Update();
+            }
+            else if (Globals.gameState == 2)
+            {
+                // Update the gameplay logic
+                lostScreen.Update();
+            }
 
             Globals.keyboard.UpdateOld();
             Globals.mouse.UpdateOld();
@@ -81,15 +95,41 @@ namespace GamesArchitectureProject
             base.Update(gameTime);
         }
 
+        // Changing the game states
+        public virtual void ChangeGameState(object INFO)
+        {
+            Globals.gameState = Convert.ToInt32(INFO, Globals.culture);
+        }
+
+        // Function to exit the game
+        public virtual void ExitGame(object INFO)
+        {
+            System.Environment.Exit(0);
+        }
+
+
         // All the drawing logic
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            //OBSOLETE Globals.spriteBatch.Draw(_logoImage, new Rectangle(0, 0, _graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight), Color.White);
             Globals.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
 
-            gamePlay.Draw();
+            // Drawing the states
+            if (Globals.gameState == 0)
+            {
+                mainMenu.Draw();
+            }
+            else if (Globals.gameState == 1)
+            {
+                // Update the gameplay logic
+                gamePlay.Draw();
+            }
+            else if (Globals.gameState == 2)
+            {
+                // Update the gameplay logic
+                lostScreen.Draw();
+            }
 
             cursor.Draw(new Vector2(Globals.mouse.newMousePos.X, Globals.mouse.newMousePos.Y), new Vector2(0, 0), Color.White);
             Globals.spriteBatch.End();

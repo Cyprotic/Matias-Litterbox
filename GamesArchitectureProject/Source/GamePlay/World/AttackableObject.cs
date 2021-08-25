@@ -5,7 +5,7 @@ using System.Text;
 
 namespace GamesArchitectureProject
 {
-    public class AttackableObject: Basic2d
+    public class AttackableObject: Animated2d
     {
         public bool dead;
 
@@ -27,8 +27,6 @@ namespace GamesArchitectureProject
         
         public virtual void Update(Vector2 OFFSET, Player ENEMY)
         {
-           
-
             base.Update(OFFSET);
         }
 

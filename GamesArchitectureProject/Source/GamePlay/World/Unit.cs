@@ -15,8 +15,6 @@ namespace GamesArchitectureProject
         
         public virtual void Update(Vector2 OFFSET, Player ENEMY)
         {
-           
-
             base.Update(OFFSET);
         }
         

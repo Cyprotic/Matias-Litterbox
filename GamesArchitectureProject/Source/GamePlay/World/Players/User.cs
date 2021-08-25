@@ -31,6 +31,5 @@ namespace GamesArchitectureProject
             base.Update(ENEMY, OFFSET);
         }
 
-
     }
 }

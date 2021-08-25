@@ -20,12 +20,13 @@ namespace GamesArchitectureProject
         public List<Projectile2d> projectiles = new List<Projectile2d>();
         public List<AttackableObject> allObjects = new List<AttackableObject>();
 
-        PassObject ResetWorld;
+        PassObject ResetWorld, ChangeGameState;
 
 
-        public World(PassObject RESETWORLD)
+        public World(PassObject RESETWORLD, PassObject CHANGEGAMESTATE)
         {
             ResetWorld = RESETWORLD;
+            ChangeGameState = CHANGEGAMESTATE;
 
 
             GameGlobals.PassProjectile = AddProjectile;
@@ -33,6 +34,7 @@ namespace GamesArchitectureProject
             GameGlobals.PassSpawnPoint = AddSpawnPoint;
 
             GameGlobals.paused = false;
+            GameGlobals.restart = false;
 
             offset = new Vector2(0, 0);
 
@@ -44,6 +46,7 @@ namespace GamesArchitectureProject
 
         public virtual void Update()
         {
+
             if (!user.hero.dead && user.buildings.Count > 0 && !GameGlobals.paused)
             {
                 allObjects.Clear();
@@ -65,22 +68,18 @@ namespace GamesArchitectureProject
                     }
                 }
             }
-            else
-            {
-                if (Globals.keyboard.GetPress("Enter") && (user.hero.dead || user.buildings.Count <= 0))
-                {
-                    ResetWorld(null);
-                }
-
-                
-            }
 
             if (Globals.keyboard.GetSinglePress("Space"))
             {
-
                 GameGlobals.paused = !GameGlobals.paused;
             }
 
+
+            if (user.hero.dead || user.buildings.Count <= 0)
+            {
+                ResetWorld(null);
+                Globals.gameState = 2;
+            }
 
             ui.Update(this);
         }

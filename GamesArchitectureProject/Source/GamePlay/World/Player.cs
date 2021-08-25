@@ -25,13 +25,18 @@ namespace GamesArchitectureProject
         public List<SpawnPoint> spawnPoints = new List<SpawnPoint>();
         public List<Building> buildings = new List<Building>();
 
+        public event EventHandler OnHitEnemy;
+
         public Player(int ID, XElement DATA)
         {
             id = ID;
 
             LoadData(DATA);
-        }
 
+            // Subscribing to our event
+            OnHitEnemy += ChangeScore;
+        }
+        
         public virtual void Update(Player ENEMY, Vector2 OFFSET)
         {
             // If hero exists update him
@@ -59,7 +64,8 @@ namespace GamesArchitectureProject
 
                 if (units[i].dead)
                 {
-                    ChangeScore(1);
+                    // If not null, invoke
+                    OnHitEnemy?.Invoke(this, EventArgs.Empty);
                     units.RemoveAt(i);
                     i--;
                 }
@@ -92,9 +98,10 @@ namespace GamesArchitectureProject
             spawnPoints.Add(tempSpawnPoint);
         }
 
-        public virtual void ChangeScore(int SCORE)
+        // Event to add points
+        public virtual void ChangeScore(object sender, EventArgs e)
         {
-
+            GameGlobals.score += 1;
         }
 
         public virtual List<AttackableObject> GetAllObjects()
@@ -107,6 +114,7 @@ namespace GamesArchitectureProject
             return tempObjects;
         }
 
+        //Deal with only loading the data for the current level by getting it from the XML file using linq
         public virtual void LoadData(XElement DATA)
         {
             List<XElement> spawnList = (from t in DATA.Descendants("SpawnPoint")

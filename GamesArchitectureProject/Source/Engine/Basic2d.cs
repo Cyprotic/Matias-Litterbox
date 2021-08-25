@@ -10,7 +10,7 @@ namespace GamesArchitectureProject
     {
         public float rot;
 
-        public Vector2 pos, dims;
+        public Vector2 pos, dims, frameSize;
 
         public Texture2D myModel;
 

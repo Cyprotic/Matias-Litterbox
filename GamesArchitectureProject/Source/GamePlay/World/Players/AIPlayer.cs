@@ -41,11 +41,5 @@ namespace GamesArchitectureProject
         {
             base.Update(ENEMY, OFFSET);
         }
-
-        public override void ChangeScore(int SCORE)
-        {
-            GameGlobals.score += SCORE;
-        }
-
     }
 }
